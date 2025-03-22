@@ -1,0 +1,26 @@
+﻿@model LibraryChornomorsk.Models.News
+
+@{
+    ViewData["Title"] = "Створення новини";
+
+}
+
+<h1 align="center">Створити новину</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+            <partial name="_News" model=@Model />
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @{
+        await Html.RenderPartialAsync("_CKEditor");
+    }
+}

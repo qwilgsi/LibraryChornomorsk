@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model LibraryUser
+@{
+    ViewData["Title"] = "Панель керування користувачами";
+    var userRoles = ViewBag.Roles as IList<string>;
+    var user = new LibraryUser();
+    if (ViewBag.User != null)
+    {
+        user = ViewBag.User as LibraryUser;
+    }
+}
+<h3 class="text-center">Деталі користувача</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <dt class="col-sm-2">
+                Ім'я користувача
+            </dt>
+            <dd class="col-sm-10">
+                @Model.UserName
+            </dd>
+            <dd class="col-sm-10">
+                @user.Age
+            </dd>
+            <dt class="col-sm-2">
+                Ролі:
+            </dt>
+            <dd class="col-sm-10">
+                @if (userRoles != null && userRoles.Any())
+                {
+                    <ol>
+                        @foreach (var role in userRoles)
+                        { 
+                            <li>@role</li>
+                        }
+                    </ol>
+                }
+                else
+                {
+                    <span>Користувач</span>
+                }
+            </dd>
+        </div>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Редагування</a> |
+            <a asp-action="Index" class="btn btn-primary">До списку</a>
+        </div>
+    </div>
+</div>

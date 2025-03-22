@@ -1,0 +1,36 @@
+﻿@model LibraryChornomorsk.Models.Book
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 align="center">Редагування @Model.Title</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" enctype="multipart/form-data">
+
+            <partial name="_Book" model=@Model />
+
+            <div class="form-group">
+                <input type="submit" value="Зберегти" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-primary">Назад</a>
+            </div>
+        </form>
+    </div>
+    <div class="col-2">
+        <img src="@WC.ImagePath@Model.Image" class="img-thumbnail" style="border-radius:10px" alt="No image" />
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @{
+        await Html.RenderPartialAsync("_CKEditor");
+    }
+}

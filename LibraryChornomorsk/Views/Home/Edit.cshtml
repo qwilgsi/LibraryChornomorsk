@@ -1,0 +1,32 @@
+﻿@model LibraryChornomorsk.Models.Annotation
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 align="center">Редагування @Model.Name</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" enctype="multipart/form-data">
+
+            <partial name="_Annotations" model=@Model />
+
+        </form>
+    </div>
+    <div class="col-2">
+        <img src="@WC.ImagePath@Model.Image" class="img-thumbnail" style="border-radius:10px" alt="No image" />
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @{
+        await Html.RenderPartialAsync("_CKEditor");
+    }
+}

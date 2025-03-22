@@ -1,0 +1,33 @@
+﻿@model IEnumerable<LibraryChornomorsk.Models.News>
+
+@{
+    ViewData["Title"] = "Новини";
+}
+
+<h1 class="text-center">Останні новини</h1>
+@if (User.IsInRole(WC.AdminRole))
+{
+    <p class="text-center">
+        <a asp-action="Create" class="btn btn-success">Додати новину</a>
+    </p>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm h-100">
+                <img class="card-img-top" src="~/@item.Image" alt="@item.Name" style="height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">
+                        @Html.Raw(item.Description.Length > 200 ? item.Description.Substring(0, 200) + "..." : item.Description)
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Читати більше</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

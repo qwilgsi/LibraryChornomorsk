@@ -1,0 +1,58 @@
+﻿    @model IEnumerable<LibraryChornomorsk.Models.Annotation>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Вітаю</h1>
+
+    @if (User.IsInRole(WC.AdminRole))
+    {
+        <p class="text-center">
+            <a asp-action="Create" class="btn btn-success">Додати аннотацію</a>
+        </p>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div id="carouselExampleCaptions" class="carousel slide bg-black">
+            <div class="carousel-indicators">
+                @foreach (var item in Model.Select((value, index) => new { value, index }))
+                {
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@item.index" class="@(item.index == 0 ? "active" : "")" aria-current="true" aria-label="Slide @(item.index + 1)"></button>
+                }
+            </div>
+            <div class="carousel-inner">
+                @foreach (var item in Model)
+                {
+                    var index = Model.ToList().IndexOf(item);
+                    <div class="carousel-item @(index == 0 ? "active" : "")">
+                        <img src="~/@item.Image" class="d-block w-100" style="height: 300px; object-fit: cover;" alt="@item.Name">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>@item.Name</h5>
+                            <p>@item.Description</p>
+                            @if (User.IsInRole(WC.AdminRole))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Редагувати</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Видалити</a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        }
+        else
+        {
+            <p class="text-white">Аннотаций пока нет.</p>
+        }
+    </div>
